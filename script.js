@@ -80,31 +80,37 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 /////////////////////////////////////////////////
 // Functions
+const formatMovementDate =function(date){
+  
+  Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+  
+  const day = `${date.getDate()}`.padStart(2, 0);
+  const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  const year = date.getFullYear();
+   return `${day}/${month}/${year}`;
+  
+  const daysPassed = (date1, date2) =>
+}
 
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
-
+  
   const movs = sort
-    ? acc.movements.slice().sort((a, b) => a - b)
-    : acc.movements;
-
+  ? acc.movements.slice().sort((a, b) => a - b)
+  : acc.movements;
+  
   movs.forEach(function (mov, i) {
     const date = new Date(acc.movementsDates[i]);
-
     const type = mov > 0 ? 'deposit' : 'withdrawal';
-
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-    const displayDate = `${day}/${month}/${year}`;
-
+    const displayDate =formatMovementDate(date);
+    
     const html = `
-      <div class="movements__row">
-        <div class="movements__type movements__type--${type}">${
+    <div class="movements__row">
+    <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
     <div class="movements__date">${displayDate}</div>
-        <div class="movements__value">${mov.toFixed(2)}€</div>
+    <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -166,9 +172,9 @@ const updateUI = function (acc) {
 let currentAccount;
 
 //fake login
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 1;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 1;
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -203,6 +209,7 @@ btnLogin.addEventListener('click', function (e) {
     updateUI(currentAccount);
   }
 });
+
 
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
@@ -322,6 +329,14 @@ btnSort.addEventListener('click', function (e) {
 // console.log(future.toISOString());
 // console.log(future.getTime());
 // console.log(Date.now());
-console.log(new Date());
+// console.log(new Date());
 // future.setFullYear('2022')
 // console.log(future);
+
+const future =new Date(2003,5,1,15,23);
+console.log(+future);
+
+
+const daysPassed =(date1,date2)=>Math.abs(date2-date1)/(1000*60*60*24);
+console.log( daysPassed(new Date(2022,3,14), new Date(2022,3,0)))
+ 
